@@ -1,0 +1,30 @@
+[
+  {
+    "tanggal": "2025-08-05",
+    "judul": "Penyaluran Bansos Tahap II Selesai 100%",
+    "ringkas": "Dinsos Manokwari Selatan menyelesaikan penyaluran bantuan tahap II kepada KPM di seluruh distrik.",
+    "gambar": "./assets/img/berita-1.jpg",
+    "slug": "penyaluran-bansos-tahap-ii"
+  },
+  {
+    "tanggal": "2025-07-28",
+    "judul": "Pelatihan Kewirausahaan Bagi Penyandang Disabilitas",
+    "ringkas": "Sebanyak 40 peserta mengikuti pelatihan kewirausahaan untuk meningkatkan kemandirian ekonomi.",
+    "gambar": "./assets/img/berita-2.jpg",
+    "slug": "pelatihan-kewirausahaan-disabilitas"
+  },
+  {
+    "tanggal": "2025-07-15",
+    "judul": "Koordinasi Data Terpadu Kesejahteraan Sosial",
+    "ringkas": "Rapat koordinasi DTKS bersama perangkat distrik untuk pemutakhiran data KPM.",
+    "gambar": "./assets/img/berita-3.jpg",
+    "slug": "koordinasi-dtks"
+  },
+  {
+    "tanggal": "2025-07-10",
+    "judul": "Layanan Jemput Bola Administrasi Kependudukan",
+    "ringkas": "Kolaborasi Dinsos dengan Dukcapil menghadirkan layanan adminduk di kampung-kampung terpencil.",
+    "gambar": "./assets/img/berita-4.jpg",
+    "slug": "layanan-jemput-bola-adminduk"
+  }
+]

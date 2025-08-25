@@ -1,0 +1,306 @@
+/* Font sudah via Google Fonts di index.html */
+body { background-color: #f8fafc; }
+
+/* Video Background Styling */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  background: url('../img/background-fallback.jpg') center/cover no-repeat;
+}
+
+.video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.video-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-loading.hidden {
+  display: none;
+}
+
+/* Animasi loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive video container */
+@media (max-width: 768px) {
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Video error state */
+.video-error {
+  background: url('../img/background-fallback.jpg') center/cover no-repeat;
+}
+
+/* Ensure video is visible */
+#bg-video {
+  display: block !important;
+  visibility: visible !important;
+}
+
+#bg-video {
+  outline: none; /* hilangkan outline debugging */
+}
+
+/* Hero gambar default ketika video dimatikan via prefers-reduced-motion */
+.hero { 
+  background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../img/bupati.jpg') center/cover no-repeat; 
+}
+
+/* Hover item navbar */
+.navbar-item:hover { background-color: rgba(255,255,255,.1); }
+@media (max-width: 768px){ .navbar-item:hover { background: transparent; } }
+
+/* Kartu hover */
+.card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,.1); }
+@media (max-width: 768px){ .card-hover:hover { transform:none; box-shadow: 0 1px 3px rgba(0,0,0,.1);} }
+
+/* Marquee */
+.marquee-content { animation: scroll 15s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0);} 100% { transform: translateX(-50%);} }
+@media (max-width: 640px){ .marquee-content { animation: scroll 10s linear infinite; } }
+
+/* Line clamp util tanpa plugin */
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Reduced motion: matikan video header */
+@media (prefers-reduced-motion: reduce){
+  .video-container video { display:none; }
+  header { background: url('../img/background-fallback.jpg') center/cover no-repeat; }
+}
+
+/* Loading state untuk video */
+.video-loading {
+  background: url('../img/background-fallback.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive video container */
+@media (max-width: 768px) {
+  .video-container video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+/* Fade in video & header content */
+.header-fade video { opacity: 0; transition: opacity .8s ease; }
+.header-fade.is-ready video { opacity: 1; }
+.header-fade .hero-copy { opacity: 0; transform: translateY(8px); transition: opacity .6s ease .2s, transform .6s ease .2s; }
+.header-fade.is-ready .hero-copy { opacity: 1; transform: translateY(0); 
+}
+
+/* Enhanced Dropdown Styles */
+.dropdown-menu {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  min-width: 220px;
+  z-index: 50;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #374151;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f8fafc;
+  color: #1e40af;
+  padding-left: 1.25rem;
+}
+
+.dropdown-item:focus {
+  outline: none;
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+/* Mobile dropdown enhancements */
+.mobile-dropdown {
+  background: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.mobile-dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #374151;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.mobile-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-dropdown-item:hover {
+  background-color: #f8fafc;
+  color: #1e40af;
+}
+
+/* Dropdown arrow indicator */
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Enhanced navbar hover states */
+.navbar-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #fbbf24;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-item:hover::after {
+  width: 80%;
+}
+
+/* Active dropdown state */
+.dropdown-active {
+  background-color: #eff6ff;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    animation: none;
+  }
+  
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Focus visible for accessibility */
+.dropdown-item:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+/* Subtle animation for dropdown items */
+.dropdown-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #3b82f6;
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.dropdown-item:hover::before {
+  transform: scaleY(1);
+}
