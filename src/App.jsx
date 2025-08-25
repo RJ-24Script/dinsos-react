@@ -1,6 +1,7 @@
-import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import { Routes, Route } from 'react-router-dom'
+
 import Home from './pages/Home.jsx'
 import Profil from './pages/Profil.jsx'
 import Program from './pages/Program.jsx'
@@ -14,7 +15,8 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
+      {/* PT penting biar gak ketiban header fixed */}
+      <main className="flex-1 pt-24 bg-slate-50">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profil" element={<Profil />} />

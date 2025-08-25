@@ -1,7 +1,29 @@
-import pengumuman from '../data/pengumuman.json'
+import { useEffect, useState } from 'react'
+import api from '../lib/api'
 
 export default function Pengumuman(){
-  const items = pengumuman || []
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let on = true
+    ;(async () => {
+      try{
+        const { data } = await api.get('/pengumuman')
+        if (on) setItems(Array.isArray(data) ? data : [])
+      }catch(e){
+        setError(e?.message || 'Gagal memuat pengumuman')
+      }finally{
+        setLoading(false)
+      }
+    })()
+    return () => { on = false }
+  }, [])
+
+  if (loading) return <section className="container mx-auto px-4 py-16">Memuat…</section>
+  if (error)   return <section className="container mx-auto px-4 py-16 text-red-600">Error: {error}</section>
+
   return (
     <section className="container mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold mb-6" data-aos="fade-up">Pengumuman & Agenda</h1>
