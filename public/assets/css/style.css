@@ -106,7 +106,7 @@ body { background-color: #f8fafc; }
 @media (max-width: 640px){ .marquee-content { animation: scroll 10s linear infinite; } }
 
 /* Line clamp util tanpa plugin */
-.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Reduced motion: matikan video header */
 @media (prefers-reduced-motion: reduce){

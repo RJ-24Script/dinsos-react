@@ -1,0 +1,20 @@
+.header {
+  background-color: #1e3a8a; /* Dark blue background */
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #1e40af; /* Slightly lighter blue border */
+  border-radius: 0 0 1rem 1rem; /* Rounded bottom corners */
+  padding: 1rem 2rem; /* Increased padding */
+}
+
+.header .brand {
+  color: white; /* White text for brand */
+}
+
+.header .nav-link {
+  color: white; /* White text for nav links */
+  opacity: 0.8; /* Slightly transparent */
+}
+
+.header .nav-link.active {
+  font-weight: bold; /* Bold for active link */
+}
