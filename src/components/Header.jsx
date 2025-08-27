@@ -5,13 +5,13 @@ import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi'
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState(null) // "profil" | "program" | "pengumuman" | null
-  const [showBanner, setShowBanner] = useState(true) // banner info
+
   const containerRef = useRef(null)
   const headerRef = useRef(null)
   const [spacerHeight, setSpacerHeight] = useState(0)
   const location = useLocation()
 
-  // Tutup dropdown kalau klik di luar container
+  // Tutup dropdown kalau klik di luar
   useEffect(() => {
     const handleClick = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -22,12 +22,12 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  // Auto spacer: ukur tinggi header (+banner) dan sisipkan spacer di bawahnya
+  // Spacer otomatis sesuai tinggi header
   useEffect(() => {
     const update = () => {
       if (!headerRef.current) return
       const rect = headerRef.current.getBoundingClientRect()
-      setSpacerHeight(rect.height) // set spacer = tinggi header actual
+      setSpacerHeight(rect.height)
     }
     update()
     const ro = new ResizeObserver(update)
@@ -37,7 +37,7 @@ export default function Header() {
       ro.disconnect()
       window.removeEventListener('resize', update)
     }
-  }, [showBanner, mobileOpen])
+  }, [mobileOpen])
 
   const baseLink = 'hover:opacity-100 transition text-sm px-2 py-1 rounded-md'
 
@@ -61,8 +61,9 @@ export default function Header() {
     { to: '/agenda', label: 'Agenda' },
   ]
 
-  // aktifkan style pada trigger dropdown "Pengumuman" jika path cocok
-  const onPengumumanSection = location.pathname.startsWith('/pengumuman') || location.pathname.startsWith('/agenda')
+  // aktifkan style pada trigger "Pengumuman" jika path cocok
+  const onPengumumanSection =
+    location.pathname.startsWith('/pengumuman') || location.pathname.startsWith('/agenda')
 
   return (
     <>
@@ -175,33 +176,15 @@ export default function Header() {
               <MobileCollapse label="Profil" items={menuItemsProfil} onNavigate={()=>setMobileOpen(false)} />
               <MobileCollapse label="Program" items={menuItemsProgram} onNavigate={()=>setMobileOpen(false)} />
               <MobileLink to="/berita" onClick={()=>setMobileOpen(false)}>Berita</MobileLink>
-
-              {/* Pengumuman (dropdown mobile) */}
               <MobileCollapse label="Pengumuman" items={menuItemsPengumuman} onNavigate={()=>setMobileOpen(false)} />
-
               <MobileLink to="/dokumen" onClick={()=>setMobileOpen(false)}>Dokumen</MobileLink>
               <MobileLink to="/pengaduan" onClick={()=>setMobileOpen(false)}>Pengaduan</MobileLink>
             </div>
           )}
         </div>
-
-        {/* Banner info (dismissible) */}
-        {showBanner && (
-          <div className="bg-blue-600 text-white text-sm text-center py-1 relative">
-            ⚡ Pengumuman: Pendaftaran Bantuan Sosial dibuka sampai 30 Agustus 2025
-            <button
-              onClick={() => setShowBanner(false)}
-              className="absolute right-3 top-0 bottom-0 flex items-center opacity-90 hover:opacity-100"
-              aria-label="Tutup banner"
-              title="Tutup"
-            >
-              ✕
-            </button>
-          </div>
-        )}
       </header>
 
-      {/* Auto spacer — supaya konten nggak ketiban header */}
+      {/* Spacer supaya konten nggak ketiban header */}
       <div style={{ height: spacerHeight }} />
     </>
   )
