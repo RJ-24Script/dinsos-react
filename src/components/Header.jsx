@@ -1,14 +1,15 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
 import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi'
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [openMenu, setOpenMenu] = useState(null) // "profil" | "program" | null
+  const [openMenu, setOpenMenu] = useState(null) // "profil" | "program" | "pengumuman" | null
   const [showBanner, setShowBanner] = useState(true) // banner info
   const containerRef = useRef(null)
   const headerRef = useRef(null)
   const [spacerHeight, setSpacerHeight] = useState(0)
+  const location = useLocation()
 
   // Tutup dropdown kalau klik di luar container
   useEffect(() => {
@@ -55,6 +56,14 @@ export default function Header() {
     { to: '/program/lansia', label: 'Lansia' },
   ]
 
+  const menuItemsPengumuman = [
+    { to: '/pengumuman', label: 'Pengumuman' },
+    { to: '/agenda', label: 'Agenda' },
+  ]
+
+  // aktifkan style pada trigger dropdown "Pengumuman" jika path cocok
+  const onPengumumanSection = location.pathname.startsWith('/pengumuman') || location.pathname.startsWith('/agenda')
+
   return (
     <>
       <header ref={headerRef} className="fixed top-0 inset-x-0 z-30">
@@ -89,7 +98,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setOpenMenu(openMenu === 'profil' ? null : 'profil')}
-                  className={`${baseLink} inline-flex items-center gap-1 text-slate-600 opacity-80`}
+                  className={`${baseLink} inline-flex items-center gap-1 ${openMenu==='profil' ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`}
                 >
                   Profil <FiChevronDown className={`text-xs transition ${openMenu==='profil' ? 'rotate-180' : ''}`} />
                 </button>
@@ -106,7 +115,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setOpenMenu(openMenu === 'program' ? null : 'program')}
-                  className={`${baseLink} inline-flex items-center gap-1 text-slate-600 opacity-80`}
+                  className={`${baseLink} inline-flex items-center gap-1 ${openMenu==='program' ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`}
                 >
                   Program <FiChevronDown className={`text-xs transition ${openMenu==='program' ? 'rotate-180' : ''}`} />
                 </button>
@@ -123,13 +132,26 @@ export default function Header() {
                 `${baseLink} ${isActive ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`
               }>Berita</NavLink>
 
-              <NavLink to="/pengumuman" className={({isActive}) =>
-                `${baseLink} ${isActive ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`
-              }>Pengumuman</NavLink>
+              {/* Pengumuman dropdown (klik) */}
+              <div className="relative">
+                <button
+                  onClick={() => setOpenMenu(openMenu === 'pengumuman' ? null : 'pengumuman')}
+                  className={`${baseLink} inline-flex items-center gap-1 ${onPengumumanSection || openMenu==='pengumuman' ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`}
+                >
+                  Pengumuman <FiChevronDown className={`text-xs transition ${openMenu==='pengumuman' ? 'rotate-180' : ''}`} />
+                </button>
+                <Dropdown show={openMenu==='pengumuman'}>
+                  {menuItemsPengumuman.map((i)=>(
+                    <DropdownItem key={i.to} to={i.to} onClick={()=>setOpenMenu(null)}>
+                      {i.label}
+                    </DropdownItem>
+                  ))}
+                </Dropdown>
+              </div>
 
-              <NavLink to="/unduhan" className={({isActive}) =>
+              <NavLink to="/dokumen" className={({isActive}) =>
                 `${baseLink} ${isActive ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`
-              }>Download</NavLink>
+              }>Dokumen</NavLink>
 
               <NavLink to="/pengaduan" className={({isActive}) =>
                 `${baseLink} ${isActive ? 'text-slate-900 font-semibold' : 'text-slate-600 opacity-80'}`
@@ -153,8 +175,11 @@ export default function Header() {
               <MobileCollapse label="Profil" items={menuItemsProfil} onNavigate={()=>setMobileOpen(false)} />
               <MobileCollapse label="Program" items={menuItemsProgram} onNavigate={()=>setMobileOpen(false)} />
               <MobileLink to="/berita" onClick={()=>setMobileOpen(false)}>Berita</MobileLink>
-              <MobileLink to="/pengumuman" onClick={()=>setMobileOpen(false)}>Pengumuman</MobileLink>
-              <MobileLink to="/unduhan" onClick={()=>setMobileOpen(false)}>Download</MobileLink>
+
+              {/* Pengumuman (dropdown mobile) */}
+              <MobileCollapse label="Pengumuman" items={menuItemsPengumuman} onNavigate={()=>setMobileOpen(false)} />
+
+              <MobileLink to="/dokumen" onClick={()=>setMobileOpen(false)}>Dokumen</MobileLink>
               <MobileLink to="/pengaduan" onClick={()=>setMobileOpen(false)}>Pengaduan</MobileLink>
             </div>
           )}

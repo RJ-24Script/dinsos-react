@@ -8,9 +8,10 @@ import Home from './pages/Home.jsx'
 import Berita from './pages/Berita.jsx'
 import Pengumuman from './pages/Pengumuman.jsx'
 import Agenda from './pages/Agenda.jsx'
-import Unduhan from './pages/Unduhan.jsx'
 import Pengaduan from './pages/Pengaduan.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Dokumen from './pages/Dokumen.jsx'
+
 
 // PROFIL (folder: src/pages/profil)
 import ProfilIndex from './pages/profil/index.jsx'
@@ -33,6 +34,12 @@ import AdminLogin from './pages/admin/Login.jsx'
 import PengaduanAdmin from './pages/admin/PengaduanAdmin.jsx'
 import PengumumanAdmin from './pages/admin/PengumumanAdmin.jsx'
 import AgendaAdmin from './pages/admin/AgendaAdmin.jsx'
+import AdminDashboard from './pages/admin/Dashboard.jsx'
+import DokumenAdmin from './pages/admin/DokumenAdmin.jsx'
+import BeritaAdmin from './pages/admin/BeritaAdmin.jsx'
+import BeritaDetail from './pages/BeritaDetail.jsx'
+
+
 
 
 export default function App() {
@@ -47,8 +54,9 @@ export default function App() {
           <Route path="/berita" element={<Berita />} />
           <Route path="/pengumuman" element={<Pengumuman />} />
           <Route path="/agenda" element={<Agenda />} />
-          <Route path="/unduhan" element={<Unduhan />} />
           <Route path="/pengaduan" element={<Pengaduan />} />
+          <Route path="/dokumen" element={<Dokumen />} />
+          <Route path="/berita/:id" element={<BeritaDetail />} />
 
           {/* PROFIL */}
           <Route path="/profil" element={<ProfilIndex />} />
@@ -73,8 +81,18 @@ export default function App() {
               </AdminRoute>
           } 
         />
+         <Route
+            path="/admin"
+           element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
           <Route path="/admin/pengumuman" element={<AdminRoute><PengumumanAdmin/></AdminRoute>} />
           <Route path="/admin/agenda" element={<AdminRoute><AgendaAdmin/></AdminRoute>} />
+          <Route path="/admin/dokumen" element={<AdminRoute><DokumenAdmin /></AdminRoute>} />
+          <Route path="/admin/berita" element={<AdminRoute><BeritaAdmin /></AdminRoute>}/>
 
 
           {/* 404 */}
