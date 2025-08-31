@@ -6,6 +6,7 @@ import {
   FiArrowRight, FiUsers, FiShield, FiFileText, FiHelpCircle,
   FiCalendar, FiLayers, FiMapPin
 } from 'react-icons/fi'
+import NewsMini from '../components/NewsMini'
 
 /** Util kecil buat judul section */
 function SectionTitle({ kicker, title, subtitle }) {
@@ -35,7 +36,6 @@ export default function Home() {
     AOS.init({ duration: 700, once: true, easing: 'ease-out-cubic' })
   }, [])
 
-  // contoh dummy, nanti bisa tarik dari API jika mau
   const highlights = useMemo(() => ([
     { icon: <FiShield />, title: 'Perlindungan Sosial', desc: 'Program menyasar kelompok rentan & penanganan bencana.' },
     { icon: <FiLayers />, title: 'PKH • BPNT/CPP • DTKS', desc: 'Informasi syarat, alur layanan, dan FAQ yang jelas.' },
@@ -67,15 +67,8 @@ export default function Home() {
             muted
             loop
             playsInline
-            className="
-            absolute inset-0
-            w-full h-full
-            object-cover object-center
-            transform-gpu
-            scale-[1.25] sm:scale-[1.15]
-  "
-/>
-
+            className="absolute inset-0 w-full h-full object-cover object-center transform-gpu scale-[1.25] sm:scale-[1.15]"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-white/0" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_60%)]" />
         </div>
@@ -91,8 +84,7 @@ export default function Home() {
                 yang Inklusif & Berkelanjutan
               </h1>
               <p className="mt-4 text-white/90">
-                Akses informasi program, ajukan layanan, dan pantau pengumuman terbaru—
-                semua dalam satu portal.
+                Akses informasi program, ajukan layanan, dan pantau pengumuman terbaru—semua dalam satu portal.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -113,7 +105,8 @@ export default function Home() {
               {/* Quick nav pills */}
               <div className="mt-6 flex flex-wrap gap-2 text-xs">
                 {quickLinks.map((q, i) => (
-                  <Link key={i}
+                  <Link
+                    key={i}
                     to={q.to}
                     className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/25 backdrop-blur hover:bg-white/30"
                   >
@@ -164,12 +157,13 @@ export default function Home() {
           title="Akses Layanan Utama"
           subtitle="Pahami syarat, alur, SLA, dan dokumen yang diperlukan."
         />
-
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="p-6">
             <div className="text-blue-700/90 text-2xl mb-2"><FiLayers /></div>
             <div className="font-semibold text-lg">PKH</div>
-            <p className="text-sm text-slate-600 mt-1">Program Keluarga Harapan untuk peningkatan kesejahteraan keluarga prasejahtera.</p>
+            <p className="text-sm text-slate-600 mt-1">
+              Program Keluarga Harapan untuk peningkatan kesejahteraan keluarga prasejahtera.
+            </p>
             <Link to="/program" className="inline-flex items-center gap-2 mt-4 text-blue-700 font-medium hover:underline">
               Lihat Detail <FiArrowRight />
             </Link>
@@ -177,7 +171,9 @@ export default function Home() {
           <Card className="p-6">
             <div className="text-blue-700/90 text-2xl mb-2"><FiShield /></div>
             <div className="font-semibold text-lg">BPNT / CPP</div>
-            <p className="text-sm text-slate-600 mt-1">Bantuan Pangan Non Tunai/CPP dengan mekanisme yang transparan.</p>
+            <p className="text-sm text-slate-600 mt-1">
+              Bantuan Pangan Non Tunai/CPP dengan mekanisme yang transparan.
+            </p>
             <Link to="/program" className="inline-flex items-center gap-2 mt-4 text-blue-700 font-medium hover:underline">
               Lihat Detail <FiArrowRight />
             </Link>
@@ -185,7 +181,9 @@ export default function Home() {
           <Card className="p-6">
             <div className="text-blue-700/90 text-2xl mb-2"><FiFileText /></div>
             <div className="font-semibold text-lg">DTKS</div>
-            <p className="text-sm text-slate-600 mt-1">Data Terpadu Kesejahteraan Sosial sebagai rujukan penetapan sasaran.</p>
+            <p className="text-sm text-slate-600 mt-1">
+              Data Terpadu Kesejahteraan Sosial sebagai rujukan penetapan sasaran.
+            </p>
             <Link to="/program" className="inline-flex items-center gap-2 mt-4 text-blue-700 font-medium hover:underline">
               Lihat Detail <FiArrowRight />
             </Link>
@@ -193,32 +191,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== BERITA RINGKAS ===== */}
-      <section className="container mx-auto px-4 py-16">
-        <SectionTitle
-          kicker="Berita Terbaru"
-          title="Sorotan Kegiatan"
-          subtitle="Cuplikan 3 berita terakhir. Lihat laman Berita untuk arsip lengkap."
-        />
-        {/* Placeholder layout — nanti kamu bisa map dari data API */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {[1,2,3].map(i => (
-            <Card key={i} className="overflow-hidden">
-              <div className="aspect-[16/9] bg-gradient-to-br from-slate-200 to-slate-100" />
-              <div className="p-5">
-                <div className="text-xs text-slate-500">2025-08-24</div>
-                <h3 className="font-semibold mt-1">Judul Berita #{i}</h3>
-                <p className="text-sm text-slate-600 mt-1 line-clamp-3">
-                  Ringkasan singkat berita untuk memberi konteks kegiatan terbaru Dinas Sosial...
-                </p>
-                <Link to="/berita" className="inline-flex items-center gap-2 mt-3 text-blue-700 font-medium hover:underline">
-                  Baca Selengkapnya <FiArrowRight />
-                </Link>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+      {/* ===== BERITA TERBARU (konek ke /berita) ===== */}
+      <NewsMini />
 
       {/* ===== CTA STRIP ===== */}
       <section className="relative">
