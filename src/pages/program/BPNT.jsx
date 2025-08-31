@@ -1,69 +1,93 @@
-import SubpageLayout from '../_SubpageLayout'
+import { Link } from 'react-router-dom'
+import { FiArrowLeft, FiCheckCircle, FiFileText, FiHelpCircle } from 'react-icons/fi'
+import { useState } from 'react'
 
-function Section({ title, children }){
+function Accordion({ q, a }) {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="mt-6">
-      <h3 className="font-semibold">{title}</h3>
-      <div className="mt-2 space-y-2 text-slate-700">{children}</div>
+    <div className="border rounded-xl overflow-hidden">
+      <button onClick={()=>setOpen(!open)} className="w-full flex justify-between items-center px-4 py-3 text-left font-medium text-slate-800 hover:bg-slate-50">
+        {q}
+        <FiHelpCircle className={`transition ${open ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
+      </button>
+      {open && <div className="px-4 py-3 text-slate-600 text-sm bg-slate-50">{a}</div>}
     </div>
   )
 }
 
-export default function BPNT(){
+export default function ProgramBPNT() {
   return (
-    <SubpageLayout
-      title="BPNT / CPP (Bantuan Pangan Non Tunai / Cadangan Pangan Pemerintah)"
-        backTo="/program"                                // <-- ini penting
-      crumbs={[{ label: 'Program', to: '/program' }, { label: 'BPNT / CPP' }]}
-    >
-      <Section title="Deskripsi Singkat">
-        <p>
-          BPNT/CPP adalah bantuan pangan dari pemerintah yang disalurkan dalam bentuk bahan
-          pangan pokok melalui mekanisme penyaluran yang ditetapkan. Tujuan utamanya adalah
-          menjaga ketahanan pangan keluarga rentan.
+    <section className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* HERO */}
+      <div className="relative">
+        <img
+          src="/assets/img/bpnt-bg.jpg"
+          alt="BPNT/CPP"
+          className="w-full h-72 object-cover"
+          onError={(e)=>{ e.currentTarget.src='https://placehold.co/1200x400?text=BPNT+%2F+CPP' }}
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">BPNT / CPP</h1>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="container mx-auto px-4 py-12 max-w-5xl">
+        <Link to="/program" className="inline-flex items-center gap-2 text-blue-700 hover:underline mb-8">
+          <FiArrowLeft /> Kembali ke Program
+        </Link>
+
+        {/* Intro */}
+        <p className="text-lg text-slate-700 mb-10">
+          Bantuan Pangan Non Tunai / Cadangan Pangan Pemerintah berupa komoditas pangan pokok
+          untuk keluarga prasejahtera, disalurkan secara nontunai/terkendali.
         </p>
-      </Section>
 
-      <Section title="Sasaran">
-        <ul className="list-disc pl-5">
-          <li>Rumah Tangga Miskin/Rentan sesuai data terpadu yang berlaku (sesuaikan dengan regulasi daerah).</li>
-          <li>Prioritas pada keluarga dengan komponen rentan (lansia, disabilitas, ibu hamil/menyusui, anak balita, pelajar).</li>
-        </ul>
-      </Section>
+        {/* Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Syarat Penerima</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Terdata di DTKS sebagai keluarga miskin/prasejahtera.</li>
+              <li>Tidak menerima bantuan sejenis yang sama (ketentuan dapat berubah).</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiFileText /></div>
+            <h3 className="font-semibold mb-2">Dokumen</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>KTP & Kartu Keluarga.</li>
+              <li>Surat keterangan domisili (bila perlu).</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Alur</h3>
+            <ol className="text-sm text-slate-600 space-y-1 list-decimal list-inside">
+              <li>Penetapan KPM dari DTKS.</li>
+              <li>Penyaluran via mekanisme nontunai/penyedia pangan.</li>
+              <li>Monitoring kualitas & ketepatan sasaran.</li>
+            </ol>
+          </div>
+        </div>
 
-      <Section title="Persyaratan Umum">
-        <ul className="list-disc pl-5">
-          <li>Kartu Keluarga (KK) & KTP-el aktif.</li>
-          <li>Terdaftar/diusulkan dalam basis data kemiskinan (DTKS/pendataan daerah).</li>
-          <li>Domisili sesuai wilayah layanan.</li>
-        </ul>
-      </Section>
+        {/* FAQ */}
+        <h2 className="text-xl font-bold mb-4">Pertanyaan Umum</h2>
+        <div className="space-y-3 mb-12">
+          <Accordion q="Apa saja komoditas yang diterima?" a="Biasanya beras, telur, dan komoditas bergizi lain sesuai kebijakan periode." />
+          <Accordion q="Bagaimana jika belum terdaftar DTKS?" a="Ajukan usulan perbaikan/pendataan di kelurahan untuk proses verivali." />
+        </div>
 
-      <Section title="Dokumen yang Dibutuhkan">
-        <ul className="list-disc pl-5">
-          <li>Fotokopi KTP-el & KK.</li>
-          <li>Surat Keterangan Tidak Mampu (bila diminta oleh kebijakan daerah).</li>
-          <li>Dokumen pendukung komponen (buku nikah/akta lahir anak/keterangan sekolah, dsb.).</li>
-        </ul>
-      </Section>
-
-      <Section title="Alur Layanan (Ringkas)">
-        <ol className="list-decimal pl-5">
-          <li>Pengusulan melalui kelurahan/kampung/desa/pendamping sosial.</li>
-          <li>Verifikasi & validasi data oleh petugas.</li>
-          <li>Penetapan penerima sesuai kuota & kriteria.</li>
-          <li>Penyaluran bahan pangan sesuai jadwal yang diumumkan.</li>
-          <li>Monitoring & pengaduan bila ada kendala penyaluran.</li>
-        </ol>
-      </Section>
-
-      <Section title="Kontak Layanan">
-        <p>Email/WA layanan: <span className="font-mono">dinsos@contoh.go.id</span> / 08xx-xxxx-xxxx (sesuaikan).</p>
-      </Section>
-
-      <Section title="Catatan">
-        <p>Kebijakan teknis/kuota/jadwal penyaluran mengikuti surat edaran & peraturan terbaru di kabupaten/provinsi.</p>
-      </Section>
-    </SubpageLayout>
+        {/* CTA */}
+        <div className="text-center bg-blue-600 text-white rounded-2xl p-8 shadow-lg">
+          <h3 className="text-2xl font-semibold mb-3">Ingin tahu jadwal penyaluran?</h3>
+          <p className="mb-4">Pantau pengumuman/agenda, atau ajukan pertanyaan melalui pengaduan.</p>
+          <Link to="/pengumuman" className="inline-block bg-white text-blue-700 px-5 py-3 rounded-xl font-semibold hover:bg-slate-100">
+            Lihat Pengumuman
+          </Link>
+        </div>
+      </div>
+    </section>
   )
 }

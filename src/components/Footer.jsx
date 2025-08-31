@@ -78,7 +78,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
                 <FiMapPin className="mt-0.5 text-slate-500 dark:text-slate-400" />
-                <span>Jl. Pemerintahan, Ransiki, Kab. Manokwari Selatan, Papua Barat</span>
+                <span>Ransiki Kota, Distrik Ransiki, Manokwari Selatan.</span>
               </li>
               <li className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                 <FiPhone className="text-slate-500 dark:text-slate-400" />
@@ -113,7 +113,7 @@ export default function Footer() {
               <div className="aspect-[16/10]">
                 <iframe
                   title="Peta Dinas Sosial Manokwari Selatan"
-                  src="https://www.google.com/maps?q=Ransiki%2C%20Manokwari%20Selatan&output=embed"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.431814063117!2d134.17905186872596!3d-1.5105481325147438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d5243d658ba6f85%3A0x7657239c78e2edfd!2sDinas%20Sosial!5e0!3m2!1sid!2sus!4v1756648148919!5m2!1sid!2sus"
                   className="w-full h-full"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -121,7 +121,7 @@ export default function Footer() {
               </div>
             </div>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Ransiki%2C%20Manokwari%20Selatan"
+              href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.431814063117!2d134.17905186872596!3d-1.5105481325147438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d5243d658ba6f85%3A0x7657239c78e2edfd!2sDinas%20Sosial!5e0!3m2!1sid!2sus!4v1756648148919!5m2!1sid!2sus"
               target="_blank" rel="noreferrer"
               className="inline-flex items-center gap-2 mt-2 text-sm text-blue-700 dark:text-blue-400 hover:underline"
             >
@@ -187,7 +187,7 @@ export default function Footer() {
 
       {/* floating: WhatsApp */}
       <a
-        href={`https://wa.me/${WA_NUMBER}?text=Halo%20Dinas%20Sosial,%20saya%20ingin%20bertanya.`}
+        href={`https://wa.me/+6282125470101?text=Halo%20Dinas%20Sosial,%20saya%20ingin%20bertanya.`}
         target="_blank" rel="noreferrer"
         className="fixed bottom-6 right-6 inline-flex items-center gap-2 px-4 py-3 rounded-full shadow-xl
                    bg-emerald-500 hover:bg-emerald-600 text-white"

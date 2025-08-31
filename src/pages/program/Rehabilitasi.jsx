@@ -1,64 +1,92 @@
-import SubpageLayout from '../_SubpageLayout'
+import { Link } from 'react-router-dom'
+import { FiArrowLeft, FiCheckCircle, FiFileText, FiHelpCircle } from 'react-icons/fi'
+import { useState } from 'react'
 
-function Section({ title, children }){
+function Accordion({ q, a }) {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="mt-6">
-      <h3 className="font-semibold">{title}</h3>
-      <div className="mt-2 space-y-2 text-slate-700">{children}</div>
+    <div className="border rounded-xl overflow-hidden">
+      <button onClick={()=>setOpen(!open)} className="w-full flex justify-between items-center px-4 py-3 text-left font-medium text-slate-800 hover:bg-slate-50">
+        {q}
+        <FiHelpCircle className={`transition ${open ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
+      </button>
+      {open && <div className="px-4 py-3 text-slate-600 text-sm bg-slate-50">{a}</div>}
     </div>
   )
 }
 
-export default function Rehabilitasi(){
+export default function ProgramRehabilitasi() {
   return (
-    <SubpageLayout
-      title="Rehabilitasi Sosial"
-           backTo="/program"                                // <-- ini penting
-      crumbs={[{ label: 'Program', to: '/program' }, { label: 'Rehabilitasi Sosial' }]}
-    >
-      <Section title="Tujuan">
-        <p>
-          Meningkatkan keberfungsian sosial individu/keluarga/komunitas yang mengalami
-          permasalahan sosial melalui intervensi profesional dan dukungan layanan.
+    <section className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* HERO */}
+      <div className="relative">
+        <img
+          src="/assets/img/rehab-bg.jpg"
+          alt="Rehabilitasi Sosial"
+          className="w-full h-72 object-cover"
+          onError={(e)=>{ e.currentTarget.src='https://placehold.co/1200x400?text=Rehabilitasi+Sosial' }}
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">Rehabilitasi Sosial</h1>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="container mx-auto px-4 py-12 max-w-5xl">
+        <Link to="/program" className="inline-flex items-center gap-2 text-blue-700 hover:underline mb-8">
+          <FiArrowLeft /> Kembali ke Program
+        </Link>
+
+        <p className="text-lg text-slate-700 mb-10">
+          Layanan asistensi rehabilitasi sosial bagi kelompok rentan untuk pemulihan, penguatan fungsi sosial,
+          dan reintegrasi ke masyarakat.
         </p>
-      </Section>
 
-      <Section title="Sasaran Layanan (contoh)">
-        <ul className="list-disc pl-5">
-          <li>Korban kekerasan, keterlantaran, atau eksploitasi.</li>
-          <li>PMKS (Penyandang Masalah Kesejahteraan Sosial) lainnya sesuai klasifikasi daerah.</li>
-          <li>Pemerlu pelayanan kesejahteraan sosial pasca-bencana.</li>
-        </ul>
-      </Section>
+        {/* Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Sasaran</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Anak, lansia, penyandang disabilitas.</li>
+              <li>Tuna sosial/korban TPPO dan kelompok rentan lainnya.</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiFileText /></div>
+            <h3 className="font-semibold mb-2">Dokumen</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>KTP/KK & surat pengantar kelurahan.</li>
+              <li>Dokumen pendukung kondisi (bila ada).</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Tahapan</h3>
+            <ol className="text-sm text-slate-600 space-y-1 list-decimal list-inside">
+              <li>Asesmen dan rencana intervensi.</li>
+              <li>Pelaksanaan layanan & pendampingan.</li>
+              <li>Monitoring & terminasi/rujukan lanjutan.</li>
+            </ol>
+          </div>
+        </div>
 
-      <Section title="Bentuk Layanan">
-        <ul className="list-disc pl-5">
-          <li>Assessment, konseling, dan rujukan.</li>
-          <li>Penguatan keluarga & community based services.</li>
-          <li>Bantuan pemenuhan kebutuhan dasar sementara (sesuai kriteria).</li>
-          <li>Rujukan ke panti/unit layanan/mitra kerja terkait.</li>
-        </ul>
-      </Section>
+        {/* FAQ */}
+        <h2 className="text-xl font-bold mb-4">Pertanyaan Umum</h2>
+        <div className="space-y-3 mb-12">
+          <Accordion q="Apakah layanan ini gratis?" a="Sebagian besar layanan dasar disediakan pemerintah tanpa biaya." />
+          <Accordion q="Apakah tersedia layanan rujukan medis?" a="Ya, sesuai kebutuhan asesmen akan dirujuk ke fasilitas terkait." />
+        </div>
 
-      <Section title="Prosedur Singkat">
-        <ol className="list-decimal pl-5">
-          <li>Pengaduan/pelaporan oleh masyarakat/instansi.</li>
-          <li>Assessment dan identifikasi kebutuhan.</li>
-          <li>Penetapan rencana intervensi & rujukan.</li>
-          <li>Pendampingan & monitoring hasil.</li>
-        </ol>
-      </Section>
-
-      <Section title="Dokumen">
-        <ul className="list-disc pl-5">
-          <li>KTP/KK & dokumen pendukung kasus (bila ada).</li>
-          <li>Berita acara/hasil assessment (oleh petugas).</li>
-        </ul>
-      </Section>
-
-      <Section title="Kontak Darurat">
-        <p>Hubungi layanan cepat Dinsos/Call Center daerah untuk kasus mendesak (isi nomor lokal).</p>
-      </Section>
-    </SubpageLayout>
+        {/* CTA */}
+        <div className="text-center bg-blue-600 text-white rounded-2xl p-8 shadow-lg">
+          <h3 className="text-2xl font-semibold mb-3">Butuh pendampingan segera?</h3>
+          <p className="mb-4">Hubungi Dinas Sosial atau ajukan permohonan asesmen.</p>
+          <Link to="/pengaduan" className="inline-block bg-white text-blue-700 px-5 py-3 rounded-xl font-semibold hover:bg-slate-100">
+            Ajukan Permohonan
+          </Link>
+        </div>
+      </div>
+    </section>
   )
 }

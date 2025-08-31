@@ -1,56 +1,93 @@
-import SubpageLayout from '../_SubpageLayout'
+import { Link } from 'react-router-dom'
+import { FiArrowLeft, FiCheckCircle, FiFileText, FiHelpCircle } from 'react-icons/fi'
+import { useState } from 'react'
 
-function Section({ title, children }){
+function Accordion({ q, a }) {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="mt-6">
-      <h3 className="font-semibold">{title}</h3>
-      <div className="mt-2 space-y-2 text-slate-700">{children}</div>
+    <div className="border rounded-xl overflow-hidden">
+      <button onClick={()=>setOpen(!open)} className="w-full flex justify-between items-center px-4 py-3 text-left font-medium text-slate-800 hover:bg-slate-50">
+        {q}
+        <FiHelpCircle className={`transition ${open ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
+      </button>
+      {open && <div className="px-4 py-3 text-slate-600 text-sm bg-slate-50">{a}</div>}
     </div>
   )
 }
 
-export default function Disabilitas(){
+export default function ProgramDisabilitas() {
   return (
-    <SubpageLayout
-      title="Layanan Disabilitas"
-            backTo="/program"                                // <-- ini penting
-      crumbs={[{ label: 'Program', to: '/program' }, { label: 'Disabilitas' }]}
-    >
-      <Section title="Asas & Tujuan">
-        <p>
-          Memenuhi hak-hak penyandang disabilitas untuk mendapatkan layanan yang aksesibel,
-          nondiskriminatif, dan berkeadilan; meningkatkan kemandirian & partisipasi sosial.
+    <section className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* HERO */}
+      <div className="relative">
+        <img
+          src="/assets/img/disabilitas-bg.jpg"
+          alt="Disabilitas"
+          className="w-full h-72 object-cover"
+          onError={(e)=>{ e.currentTarget.src='https://placehold.co/1200x400?text=Disabilitas' }}
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">Disabilitas</h1>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="container mx-auto px-4 py-12 max-w-5xl">
+        <Link to="/program" className="inline-flex items-center gap-2 text-blue-700 hover:underline mb-8">
+          <FiArrowLeft /> Kembali ke Program
+        </Link>
+
+        <p className="text-lg text-slate-700 mb-10">
+          Program inklusi sosial untuk penyandang disabilitas: akses layanan, alat bantu, pendidikan, pekerjaan,
+          dan pendampingan keluarga/komunitas.
         </p>
-      </Section>
 
-      <Section title="Jenis Dukungan (contoh)">
-        <ul className="list-disc pl-5">
-          <li>Alat bantu (kursi roda, tongkat, alat bantu dengar) sesuai asesmen.</li>
-          <li>Pendampingan keluarga dan rujukan layanan kesehatan/pendidikan/ketenagakerjaan.</li>
-          <li>Fasilitasi aksesibilitas layanan publik & advokasi.</li>
-        </ul>
-      </Section>
+        {/* Cards */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Fokus Layanan</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Alat bantu & aksesibilitas.</li>
+              <li>Rujukan pendidikan/pekerjaan inklusif.</li>
+              <li>Pendampingan keluarga & komunitas.</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiFileText /></div>
+            <h3 className="font-semibold mb-2">Dokumen</h3>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>KTP/KK dan surat keterangan disabilitas (bila diperlukan).</li>
+              <li>Dokumen pendukung kebutuhan alat bantu/layanan.</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="text-blue-600 text-2xl mb-3"><FiCheckCircle /></div>
+            <h3 className="font-semibold mb-2">Proses</h3>
+            <ol className="text-sm text-slate-600 space-y-1 list-decimal list-inside">
+              <li>Pengajuan & asesmen kebutuhan.</li>
+              <li>Penetapan & penyaluran layanan/alat bantu.</li>
+              <li>Pendampingan & monitoring.</li>
+            </ol>
+          </div>
+        </div>
 
-      <Section title="Persyaratan Umum">
-        <ul className="list-disc pl-5">
-          <li>KTP/KK.</li>
-          <li>Surat keterangan disabilitas/rekam medis (bila ada).</li>
-          <li>Domisili sesuai wilayah.</li>
-        </ul>
-      </Section>
+        {/* FAQ */}
+        <h2 className="text-xl font-bold mb-4">Pertanyaan Umum</h2>
+        <div className="space-y-3 mb-12">
+          <Accordion q="Apakah alat bantu dipinjamkan atau diberikan?" a="Skema bisa hibah/pemberian sesuai kebijakan dan asesmen kebutuhan." />
+          <Accordion q="Bagaimana jika belum punya surat keterangan disabilitas?" a="Bisa mengajukan pemeriksaan/rujukan melalui fasilitas kesehatan." />
+        </div>
 
-      <Section title="Proses Layanan">
-        <ol className="list-decimal pl-5">
-          <li>Registrasi & pengajuan kebutuhan.</li>
-          <li>Assessment oleh petugas/pendamping.</li>
-          <li>Penetapan bantuan/rujukan sesuai hasil asesmen & ketersediaan.</li>
-          <li>Penyaluran/pelayanan & monitoring.</li>
-        </ol>
-      </Section>
-
-      <Section title="Kontak & Konsultasi">
-        <p>Hub layanan disabilitas Dinsos: email/WA resmi (sesuaikan).</p>
-      </Section>
-    </SubpageLayout>
+        {/* CTA */}
+        <div className="text-center bg-blue-600 text-white rounded-2xl p-8 shadow-lg">
+          <h3 className="text-2xl font-semibold mb-3">Perlu bantuan alat bantu?</h3>
+          <p className="mb-4">Ajukan asesmen kebutuhan Anda melalui kanal resmi.</p>
+          <Link to="/pengaduan" className="inline-block bg-white text-blue-700 px-5 py-3 rounded-xl font-semibold hover:bg-slate-100">
+            Ajukan Permohonan
+          </Link>
+        </div>
+      </div>
+    </section>
   )
 }
